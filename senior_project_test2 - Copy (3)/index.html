@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Clone Archivez - Home</title>
+
+  <!-- Inline CSS -->
+  <style>
+    body, h1, h2, h3, p, input, button, div {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 3em;
+      margin-bottom: 20px;
+      color: #2d3d4e;
+    }
+
+    .auth-buttons {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .auth-buttons h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #3a4f6d;
+    }
+
+    .auth-buttons div {
+      margin-bottom: 15px;
+    }
+
+    .auth-buttons h3 {
+      font-size: 1.2em;
+      color: #3a4f6d;
+    }
+
+    .auth-buttons input {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .auth-buttons button {
+      width: 100%;
+      padding: 10px;
+      background-color: #5cb85c;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1.1em;
+      margin-top: 10px;
+    }
+
+    .auth-buttons button:hover {
+      background-color: #4cae4c;
+    }
+
+    .model-buttons {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%; 
+      text-align: center;
+    }
+
+    .model-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 10px 0;
+    }
+
+    .model-container button {
+      margin: 10px;
+      padding: 12px 20px;
+      background-color: #0275d8;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+
+    .model-container button:hover {
+      background-color: #025aa5;
+    }
+
+    .favorite-star {
+      font-size: 1.5em;
+      cursor: pointer;
+      color: #ccc;
+      margin-left: 10px;
+    }
+
+    .favorite-star.favorited {
+      color: gold;
+    }
+
+    #user-info {
+      text-align: center;
+      font-size: 1.2em;
+      margin-bottom: 30px;
+    }
+
+    /* Feedback button styling */
+    .feedback-button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      background-color: #ff9f00;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+
+    .feedback-button:hover {
+      background-color: #e68900;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+
+      .auth-buttons {
+        width: 100%;
+        padding: 15px;
+      }
+
+      .model-buttons button {
+        width: 90%;
+        margin: 10px 5%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>The Clone Archivez</h1>
+  
+  <div id="user-info"></div>
+
+  <div id="login-form" class="auth-buttons">
+    <h2>Login / Sign Up</h2>
+    <div>
+      <h3>Sign Up</h3>
+      <input type="email" id="signup-email" placeholder="Email" />
+      <input type="password" id="signup-password" placeholder="Password" />
+      <button onclick="signUp()">Sign Up</button>
+    </div>
+    <div>
+      <h3>Log In</h3>
+      <input type="email" id="login-email" placeholder="Email" />
+      <input type="password" id="login-password" placeholder="Password" />
+      <button onclick="logIn()">Log In</button>
+    </div>
+    <div>
+      <h3>Forgot Password?</h3>
+      <input type="email" id="reset-email" placeholder="Email" />
+      <button onclick="resetPassword()">Reset Password</button>
+    </div>
+  </div>
+
+  <div id="model-buttons" class="model-buttons">
+    <div class="model-container">
+      <button onclick="window.location.href='55th.html'">55th Clone</button>
+      <span class="favorite-star" onclick="toggleFavorite('55th')">★</span>
+    </div>
+    <div class="model-container">
+      <button onclick="window.location.href='224th.html'">224th Clone</button>
+      <span class="favorite-star" onclick="toggleFavorite('224th')">★</span>
+    </div>
+    <div class="model-container">
+      <button onclick="window.location.href='ARF.html'">ARF Trooper</button>
+      <span class="favorite-star" onclick="toggleFavorite('ARF')">★</span>
+    </div>
+    <div class="model-container">
+      <button onclick="logOut()">Log Out</button>
+    </div>
+
+    <!-- Feedback Button -->
+    <div class="model-container">
+      <button class="feedback-button" onclick="window.location.href='feedback.html'">Leave Feedback</button>
+    </div>
+  </div>
+
+  <script type="module" src="/js/auth.js"></script> 
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      loadFavorites();
+    });
+
+    function toggleFavorite(modelName) {
+      const favorites = JSON.parse(localStorage.getItem('favorites')) || {};
+      favorites[modelName] = !favorites[modelName];
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+      updateFavoriteStar(modelName);
+    }
+
+    function loadFavorites() {
+      const favorites = JSON.parse(localStorage.getItem('favorites')) || {};
+      for (const model in favorites) {
+        if (favorites[model]) {
+          updateFavoriteStar(model);
+        }
+      }
+    }
+
+    function updateFavoriteStar(modelName) {
+      const stars = document.querySelectorAll('.favorite-star');
+      stars.forEach(star => {
+        if (star.getAttribute('onclick').includes(modelName)) {
+          star.classList.toggle('favorited', JSON.parse(localStorage.getItem('favorites'))[modelName]);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

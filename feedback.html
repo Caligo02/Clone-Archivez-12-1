@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leave Feedback</title>
+  <style>
+    body, h1, h2, p, input, textarea, button {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: #2d3d4e;
+    }
+
+    .feedback-form {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .feedback-form h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #3a4f6d;
+    }
+
+    .feedback-form div {
+      margin-bottom: 15px;
+    }
+
+    .feedback-form input, .feedback-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .feedback-form button {
+      width: 100%;
+      padding: 12px;
+      background-color: #0275d8;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+
+    .feedback-form button:hover {
+      background-color: #025aa5;
+    }
+
+    .feedback-form button:disabled {
+      background-color: #aaa;
+      cursor: not-allowed;
+    }
+
+    .feedback-form h3 {
+      font-size: 1.2em;
+      color: #333;
+    }
+
+  </style>
+</head>
+<body>
+
+  <h1>Leave Feedback</h1>
+
+  <!-- Feedback Form -->
+  <div class="feedback-form">
+    <h2>We'd love to hear your thoughts!</h2>
+    <h3>Your Name (optional)</h3>
+    <input type="text" id="name" placeholder="Enter your name (optional)" />
+
+    <h3>Your Feedback</h3>
+    <textarea id="feedback" placeholder="Write your feedback here..." rows="5"></textarea>
+
+    <button id="submit-feedback" onclick="submitFeedback()">Submit Feedback</button>
+  </div>
+
+  <script>
+    // Handle feedback submission
+    function submitFeedback() {
+      const name = document.getElementById('name').value.trim();
+      const feedback = document.getElementById('feedback').value.trim();
+
+      if (!feedback) {
+        alert('Please provide your feedback.');
+        return;
+      }
+
+      
+      alert('Feedback submitted successfully!');
+
+      // Clear the form after submission
+      document.getElementById('name').value = '';
+      document.getElementById('feedback').value = '';
+    }
+  </script>
+
+</body>
+</html>
